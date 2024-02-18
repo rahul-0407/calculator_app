@@ -1,20 +1,49 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import {  Text, View } from "react-native";
+import ThemeState from "./src/context/ThemeState";
+import React, { useState } from "react";
+import Home from "./src/components/Home";
+import { useFonts } from 'expo-font';
+// import { AppLoading } from 'expo';
+
+
+// const fetchFonts = async () => {
+//   return Font.loadAsync({
+//     'Arial-Unicode': require('./assets/fonts/Arial-unicode-ms.ttf'),
+//   });
+// };
+
 
 export default function App() {
+
+  let [fontsLoaded] = useFonts({
+    'Arial-Unicode': require('./assets/fonts/Arial-unicode-ms.ttf'),
+  });
+
+  if (!fontsLoaded) {
+    // Font is not loaded yet
+    return <View><Text>Loading...</Text></View>;
+  }
+
+  // const [dataLoaded, setDataLoaded] = useState(false);
+
+  // const handleFontsLoaded = () => {
+  //   setDataLoaded(true);
+  // };
+
+  // if (!dataLoaded) {
+  //   return (
+  //     <AppLoading
+  //       startAsync={fetchFonts}
+  //       onFinish={handleFontsLoaded}
+  //       onError={console.warn}
+  //     />
+  //   );
+  // }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <ThemeState>
+      <Home/>
+    </ThemeState>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
